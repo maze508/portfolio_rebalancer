@@ -11,7 +11,6 @@ A simple algorithm that helps you split your assets quickly into their pre - spe
 ![](images/its_easy.png)
 
 ## Installation
-***
 <br>
 
 - Download Repository
@@ -28,16 +27,14 @@ A simple algorithm that helps you split your assets quickly into their pre - spe
 
 
 ## How to Use
-***
 <br>
 
 Open the `env.py` file and define the following fields
 
     total_cash         - Total Cash Injection
     cash_currency      - Currency type of Cash Injection
-    tickers            - Ticker Symbol of Investment Instrument
-    quantities         - Quantities of Corresponding Investment Instrument
-    target_asset_alloc - Target Asset Allocation (%)
+    current_port       - Current Portfolio Composition (Tickers + Quantity)
+    target_asset_alloc - Target Asset Allocation (%) (Tickers + Desired % Allocation)
 
     [Optional] selling_allowed - Allow or Disallow Algorithm to sell owned assets
 
@@ -45,24 +42,26 @@ Run `main.py`
 
 
 ## Demo
-***
 
 Below is a possible portfolio composition
 
 ```python
+# Amount of total Cash Injection [list]
 total_cash = [30000, 500] 
 
+# Currency type of Cash Injection [list]
 cash_currency = ['usd', 'sgd']
 
-tickers = [
-    "TSLA",
-    "NIO",
-    "XPEV",
-    "LI"
-]
+# Current Portfolio Composition [dict : (Keys --> tickers) (Values --> Quantity of stock)]
+current_port = {
+    "TSLA": 4,
+    "NIO": 20,
+    "XPEV": 50,
+    "LI": 100
+}
 
-quantities = [4,20,50,100]
 
+# Target Asset Allocation (%) [dict : (Keys --> ticker) (Values --> % Allocation)]
 target_asset_alloc = {
     "TSLA": 20,
     "NIO": 20,
@@ -70,16 +69,18 @@ target_asset_alloc = {
     "LI": 20
 }
 
+# Flag to allow or disallow selling [(Bool) : `True OR False`]
 selling_allowed = False
-
 ```
 
 After running `main.py` the resulting terminal display / output should be close to the following
 
+
 ![](images/portfolio_rebalancer_output.png)
 
+<sub>*Results as of 8<sup>th</sup> Jan 2021*</sub>
+
 ## Road Map
-***
 
 - [ ] More Flexible Currency Conversion 
 - [ ] Increase Calculating Speed (Optimisation)

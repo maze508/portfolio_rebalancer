@@ -9,16 +9,8 @@ from tabulate import tabulate
 from env import *
 
 
-# TODO :
-    #? To add a way for the `user to input` the specific value of the price of the stocks if we cannot find its display currency and it happens to not be in USD
-    #? Finish Documentation
-    #? Better Inline Documentation
-
-    #? Possibly Generate HTML Report (if chosen)
-
-
 #! Checking Input Issues
-def check_input(total_cash, cash_currency, tickers, quantity, target_asset_alloc):
+def check_input(total_cash, cash_currency, target_asset_alloc):
     """Check issues in User inputs
 
     Args:
@@ -44,9 +36,6 @@ def check_input(total_cash, cash_currency, tickers, quantity, target_asset_alloc
 
     #* Ensure target asset alloc is a dict
     assert type(target_asset_alloc) == dict, f'Target Asset Allocation should be in the form of a dictionary'
-
-    #* Ensure length of ticker, qty & target_asset_alloc should be the same
-    assert len(tickers) == len(quantity) == len(target_asset_alloc.values()), f'Length of Ticker, Quantity and Target Asset Allocation should be equal'
 
     #* Ensure that Target Asset Allocation adds up to 100%
     assert sum(target_asset_alloc.values()) == 100, f'Sum of Target Asset Allocation should add up to 100'
@@ -85,7 +74,7 @@ def currency_conversion(cash_currency, total_cash):
 
 
 #! Portfolio Rebalancing
-def port_rebalance(cash_currency, sum_total_cash_in_usd, tickers, quantity, target_asset_alloc):
+def port_rebalance(cash_currency, sum_total_cash_in_usd, target_asset_alloc, current_port):
     """[summary]
 
     Args:
@@ -102,6 +91,9 @@ def port_rebalance(cash_currency, sum_total_cash_in_usd, tickers, quantity, targ
 
     current_asset_values = []
     indiv_share_price = []
+
+    tickers = list(current_port.keys())
+    quantity = list(current_port.values())
 
     #* Finds current asset values displayed in USD and individual stock prices
     for i in range(len(tickers)):
@@ -192,28 +184,12 @@ def port_rebalance(cash_currency, sum_total_cash_in_usd, tickers, quantity, targ
 
 
 #! Generate Report
-def report(sum_total_cash_in_usd, quantities, indiv_share_price, current_asset_values, old_allocation, new_assets_values, assets_to_buy, units_to_buy, price_of_units_to_buy, final_quantity, current_portfolio_worth, current_portfolio_values, new_allocation, largest_discrepancy, cash_spent, cash_remaining, target_alloc):
-    #* Individual Print Statements
-    # print("Individual Share Price :", indiv_share_price)
-    # print()
-    # print("Current Asset Values :", current_asset_values)
-    # print("Old Allocation (%) :", old_allocation)
-    # print()
-    # print("New Asset Values :", new_assets_values)
-    # print("Assets to Buy :", assets_to_buy)
-    # print("Initial Quantities :", quantities)
-    # print("Units to Buy :", units_to_buy)
-    # print("Price of Units to Buy", price_of_units_to_buy)
-    # print("Final Quantity :", final_quantity)
-    # print()
-    # print("Current Portfolio Worth :", current_portfolio_worth)
-    # print("Current Portfolio Values :", current_portfolio_values)
-    # print()
-    # print("New Allocation (%) :", new_allocation * 100)
-    # print("Largest Discrepancy :", largest_discrepancy)
-    # print()
-    # print("Cash Spent :", cash_spent)
-    # print("Cash Remaining : ", cash_remaining)
+def generate_report(sum_total_cash_in_usd, current_port, indiv_share_price, current_asset_values, old_allocation, new_assets_values, assets_to_buy, units_to_buy, price_of_units_to_buy, final_quantity, current_portfolio_worth, current_portfolio_values, new_allocation, largest_discrepancy, cash_spent, cash_remaining, target_alloc):
+    """
+        Generates Report
+    """
+    quantities = list(current_port.values())
+    tickers = list(current_port.keys())
 
     #* Dataframe Generating to Display Data
     df = pd.DataFrame()
@@ -228,6 +204,7 @@ def report(sum_total_cash_in_usd, quantities, indiv_share_price, current_asset_v
     df['Target Allocation' + '\n' + ' (%)'] = [round(i, 2) for i in target_alloc]
 
     #* Change name of index
+    print(tickers)
     for i, x in enumerate(df.index):
         df.rename(index={x : tickers[i]}, inplace=True)
     

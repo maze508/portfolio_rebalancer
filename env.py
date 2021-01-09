@@ -1,18 +1,17 @@
+# Amount of total Cash Injection [list]
 total_cash = [30000, 500] 
 
 # Currency type of Cash Injection [list]
 cash_currency = ['usd', 'sgd']
 
-# Ticker Symbol of Investment Instrument [list]
-tickers = [
-    "TSLA",
-    "NIO",
-    "XPEV",
-    "LI"
-]
+# Current Portfolio Composition [dict : (Keys --> tickers) (Values --> Quantity of stock)]
+current_port = {
+    "TSLA": 4,
+    "NIO": 20,
+    "XPEV": 50,
+    "LI": 100
+}
 
-# Quantities of Corresponding Investment Instrument [list]
-quantities = [4,20,50,100]
 
 # Target Asset Allocation (%) [dict : (Keys --> ticker) (Values --> % Allocation)]
 target_asset_alloc = {
