@@ -10,20 +10,18 @@ from env import *
 
 
 #! Checking Input Issues
-def check_input(total_cash, cash_currency, target_asset_alloc):
+def check_input(cash_total, target_asset_alloc):
     """Check issues in User inputs
 
     Args:
-        total_cash (list): list of cash amounts to be added to portfolio
-        cash_currency (list): list of currencies of the cash amounts to be added to portfolio
-        tickers (list): ticker symbols of portfolio
-        quantity (list): quantities currently owned of the specified ticker symbols defined
-        target_asset_alloc (dict): dictionary of tickers as keys and target allocation(%) as values
+        cash_total (dict): Keys = cash injection, Values = currency of cash injection
+        target_asset_alloc (dict): Keys = tickers, Values = target allocation(%) 
 
     Returns:
         [Bool]: True if everything is right
     """
-
+    total_cash = list(cash_total.keys())
+    cash_currency = list(cash_total.values())
     #* Ensure that lists are not empty
     if total_cash == [] or cash_currency == []:
         print('Please Enter a Valid Number for Cash Currency and Amount')
@@ -46,18 +44,19 @@ def check_input(total_cash, cash_currency, target_asset_alloc):
 
 
 #! Currency Conversion
-def currency_conversion(cash_currency, total_cash):
+def currency_conversion(cash_total):
     """Converts total cash injected into portfolio to USD
 
     Args:
-        cash_currency (list): list of currencies of the cash amounts to be added to portfolio
-        total_cash (list): list of cash amounts to be added to portfolio
+        cash_total (dict): Keys = cash injection, Values = currency of cash injection
 
     Returns:
         sum_total_cash_in_usd [list]: total cash in USD
     """
 
     c = CurrencyConverter()
+    cash_currency = list(cash_total.values())
+    total_cash = list(cash_total.keys())
     #* Else ensure that all inputted currencies are in uppercase
     cash_currency = [i.upper() for i in cash_currency]
 
@@ -74,15 +73,13 @@ def currency_conversion(cash_currency, total_cash):
 
 
 #! Portfolio Rebalancing
-def port_rebalance(cash_currency, sum_total_cash_in_usd, target_asset_alloc, current_port):
+def port_rebalance(sum_total_cash_in_usd, target_asset_alloc, current_port):
     """[summary]
 
     Args:
-        cash_currency ([list]): list of currencies of the cash amounts to be added to portfolio
-        sum_total_cash_in_usd ([list]): total cash injection in USD
-        tickers ([list]): ticker symbols of portfolio
-        quantity ([list]): quantities currently owned of the specified ticker symbols defined
-        target_asset_alloc ([dict]): dictionary of tickers as keys and target allocation(%) as values
+        sum_total_cash_in_usd (list): total cash injection in USD
+        current_port (dict) : Keys = tickers, Values = quantity of stocks
+        target_asset_alloc (dict): Keys = tickers, Values = target allocation(%) 
 
     Returns:
         Multiple objects to be then displayed 

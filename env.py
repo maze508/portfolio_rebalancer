@@ -1,8 +1,8 @@
-# Amount of total Cash Injection [list]
-total_cash = [30000, 500] 
-
-# Currency type of Cash Injection [list]
-cash_currency = ['usd', 'sgd']
+# Details of Cash Injection [dict : (Keys --> amount of cash injection) (Values --> currency of cash injection)]
+cash_total = {
+    30000: 'usd',
+    500: 'sgd'
+}
 
 # Current Portfolio Composition [dict : (Keys --> tickers) (Values --> Quantity of stock)]
 current_port = {
