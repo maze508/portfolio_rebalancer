@@ -46,11 +46,11 @@ Run `main.py`
 Below is a possible portfolio composition
 
 ```python
-# Amount of total Cash Injection [list]
-total_cash = [30000, 500] 
-
-# Currency type of Cash Injection [list]
-cash_currency = ['usd', 'sgd']
+# Details of Cash Injection [dict : (Keys --> amount of cash injection) (Values --> currency of cash injection)]
+cash_total = {
+    30000: 'usd',
+    500: 'sgd'
+}
 
 # Current Portfolio Composition [dict : (Keys --> tickers) (Values --> Quantity of stock)]
 current_port = {
@@ -68,6 +68,9 @@ target_asset_alloc = {
     "XPEV": 40,
     "LI": 20
 }
+
+# Flag to allow or disallow selling [(Bool) : `True OR False`]
+selling_allowed = False
 
 # Flag to allow or disallow selling [(Bool) : `True OR False`]
 selling_allowed = False
