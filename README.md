@@ -31,8 +31,7 @@ A simple algorithm that helps you split your assets quickly into their pre - spe
 
 Open the `env.py` file and define the following fields
 
-    total_cash         - Total Cash Injection
-    cash_currency      - Currency type of Cash Injection
+    cash_total         - Amount of Cash Injection (Amount + Currency)
     current_port       - Current Portfolio Composition (Tickers + Quantity)
     target_asset_alloc - Target Asset Allocation (%) (Tickers + Desired % Allocation)
 
@@ -72,8 +71,6 @@ target_asset_alloc = {
 # Flag to allow or disallow selling [(Bool) : `True OR False`]
 selling_allowed = False
 
-# Flag to allow or disallow selling [(Bool) : `True OR False`]
-selling_allowed = False
 ```
 
 After running `main.py` the resulting terminal display / output should be close to the following
